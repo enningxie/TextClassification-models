@@ -3,6 +3,7 @@ import pandas as pd
 from tqdm import tqdm
 import numpy as np
 from sklearn.model_selection import train_test_split, StratifiedKFold
+import pickle
 
 
 class DataLoader(object):
@@ -52,6 +53,8 @@ class DataLoader(object):
         self.chars = {i: j for i, j in chars.items() if j >= self.min_count}
         self.id2char = {i + 2: j for i, j in enumerate(chars)}
         self.char2id = {j: i for i, j in self.id2char.items()}
+        with open('./char2id.pickle', 'wb') as f:
+            pickle.dump(self.char2id, f, -1)
         self.X = raw_data[0].apply(self._string2id).values
         # # maxlen = 92
         # a = raw_data[2].apply(len)
@@ -61,6 +64,10 @@ class DataLoader(object):
         # process feature end
         # process label start
         word2index = {word: i for i, word in enumerate(raw_data[1].unique())}
+        index2word = {i: word for word, i in word2index.items()}
+        # 保存数据
+        with open('./index2word.pickle', 'wb') as f:
+            pickle.dump(index2word, f, -1)
         self.y = raw_data[1].apply(word2index.get).values
         # process label end
 

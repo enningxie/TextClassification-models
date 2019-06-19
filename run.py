@@ -70,4 +70,4 @@ def main(model_name, cross_validation=True):
 
 
 if __name__ == '__main__':
-    main('text_rnn', False)
+    main('text_cnn')

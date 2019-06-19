@@ -36,6 +36,7 @@ class Trainer(object):
         y = self.data_loader.y
         val_loss_flods = []
         val_acc_flods = []
+        best_acc = 0
         for j, (train_idx, val_idx) in enumerate(folds):
             print('\nFold ', j + 1)
             x_train_cv = x[train_idx]
@@ -56,6 +57,9 @@ class Trainer(object):
             val_result = model.evaluate(x_valid_cv, y_valid_cv)
             print("[{}]: {}'s acc: {};".format(j + 1, self.model_config.model_name, val_result[1]))
             print("[{}]: {}'s loss: {}.".format(j + 1, self.model_config.model_name, val_result[0]))
+            if val_result[1] > best_acc:
+                best_acc = val_result[1]
+                model.save('./{}_{:.2f}.h5'.format(self.model_config.model_name, best_acc))
             val_loss_flods.append(val_result[0])
             val_acc_flods.append(val_result[1])
         sorted_index = np.argsort(val_acc_flods)[::-1]
