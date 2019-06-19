@@ -1,2 +1,2 @@
 # TextClassification-models
-https://github.com/ShawnyXiao/TextClassification-Keras
+Refactored base on [TextClassification-Keras](https://github.com/ShawnyXiao/TextClassification-Keras).
