@@ -1,3 +1,7 @@
 .idea/
 models/__pycache__/
 utils/__pycache__/
+*.h5
+*.pickle
+data/
+.DS_Store
